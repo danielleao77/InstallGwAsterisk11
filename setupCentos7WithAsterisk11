@@ -1,0 +1,65 @@
+Specs
+Swap -> 1024MB
+/boot -> 512MB
+/ -> all your remaining free space
+
+
+
+sed -i s/SELINUX=enforcing/SELINUX=disabled/g /etc/selinux/config
+
+systemctl disable firewalld
+
+init 6
+
+yum install epel-release
+
+yum upgrade -y
+
+yum install make svn openssl-devel ncurses-devel  newt-devel libxml2-devel kernel-devel gcc gcc-c++ sqlite-devel libuuid-devel
+ mlocate vim htop wget net-tooles dstat -y && updatedb
+
+vim /etc/yum.repos.d/irontec.repo
+
+  [irontec]
+  name=Irontec RPMs repository
+  baseurl=http://packages.irontec.com/centos/$releasever/$basearch/
+
+rpm --import http://packages.irontec.com/public.key
+
+yum install sngrep
+
+cd /usr/local/src/
+
+wget http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-11.25.3.tar.gz
+
+tar -xvzf asterisk-11.25.3.tar.gz
+
+cd asterisk-11.25.3
+
+contrib/scripts/install_prereq install
+
+contrib/scripts/get_mp3_source.sh
+
+./configure --libdir=/usr/lib64
+
+make menuselect
+
+Now inside the "Add-ons" we choose "format_mp3" and the "Save & Exit"
+
+make
+
+make install
+
+make samples
+
+make config
+
+make install-logrotate
+
+systemctl start asterisk
+
+systemctl enable asterisk
+
+cd ../
+
+wget http://asterisk.hosting.lv/bin/codec_g729-ast110-gcc4-glibc-x86_64-core2-sse4.so
