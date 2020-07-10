@@ -63,3 +63,10 @@ systemctl enable asterisk
 cd ../
 
 wget http://asterisk.hosting.lv/bin/codec_g729-ast110-gcc4-glibc-x86_64-core2-sse4.so
+
+mv codec_g729-ast110-gcc4-glibc-x86_64-core2-sse4.so /usr/lib64/asterisk/modules/codec_g729.so
+
+asterisk -x 'module load codec_g729.so'
+
+sed -i s/\;verbose/verbose/g /etc/asterisk/asterisk.conf
+
