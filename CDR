@@ -1,5 +1,7 @@
 Levando em consideração que o DB é mysql temos que ter o conector mysql
 
+
+Prerequisite
 yum install  unixODBC unixODBC-devel  mysql-connector-odbc
 
 
@@ -65,20 +67,6 @@ echo "select 1" | isql -v asterisk-conn
 Confirmamos as informaçõe do Dial Plan, se esta presente os campos adicionais e so ai reiniciaremos o serviço do asterisk
 
 asterisk -x 'core reload'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
