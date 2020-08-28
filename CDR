@@ -58,10 +58,13 @@ alias start=> calldate
 
 
 Agora conseguimos testar a conexão atraves do comando abaixo
-isql -v asterisk-conn
+echo "select 1" | isql -v asterisk-conn
 
 
 
+Confirmamos as informaçõe do Dial Plan, se esta presente os campos adicionais e so ai reiniciaremos o serviço do asterisk
+
+asterisk -x 'core reload'
 
 
 
