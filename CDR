@@ -1,0 +1,82 @@
+Levando em consideração que o DB é mysql temos que ter o conector mysql
+
+yum install  unixODBC unixODBC-devel  mysql-connector-odbc
+
+
+Edite o arquivo "odbcinst" para usar os drivers do conector recem instalado
+vim /etc/odbcinst.ini
+
+Particularmente gosto de criar um contexto novo para o CDR, assim não misturamos as coisas.
+
+[MySQL-CDR]
+Description     = ODBC for MySQL
+Driver64        = /usr/lib64/libmyodbc5.so
+Setup64         = /usr/lib64/libodbcmyS.so
+FileUsage       = 1
+
+Criaremos o arquivo de conexão e a conexão utilizado pelo ODBC
+vim /etc/odbc.ini
+
+[asterisk-conn]
+Driver = MySQL-CDR
+SERVER = 172.16.0.179
+PORT = 3306
+DATABASE = $$$
+OPTION = 3
+USER = $$$
+PASSWORD = $$$
+
+Editaremos o arquivo de resources do asterisk
+vim /etc/asterisk/res_odbc.conf
+[asterisk-cdr]
+enabled=>yes
+dsn=>asterisk-conn
+username=>$$$
+pooling=>no
+password=>$$$
+pre-connect=>yes
+limit=>1
+pooling=>yes
+
+
+Editaremos o arquivo de CDR-ODBC do asterisk
+vim /etc/asterisk/cdr_odbc.conf
+[global]
+dsn=asterisk-cdr
+username=$$$
+password=$$$
+loguniqueid=yes
+table=$$$
+
+
+Agora ajustamos o adaptive-CDR para iniciar o cdr do calldate e assim pegar os campos adicionais.
+vim /etc/asterisk/cdr_adaptive_odbc.conf
+[adaptive_connection]
+connection=asterisk-cdr
+table=cdr
+alias start=> calldate
+
+
+Agora conseguimos testar a conexão atraves do comando abaixo
+isql -v asterisk-conn
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
