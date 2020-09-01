@@ -2,7 +2,7 @@ Levando em consideração que o DB é mysql temos que ter o conector mysql
 
 
 Prerequisite
-yum install  unixODBC unixODBC-devel  mysql-connector-odbc
+yum install  unixODBC unixODBC-devel  mysql-connector-odbc -y
 
 
 Edite o arquivo "odbcinst" para usar os drivers do conector recem instalado
