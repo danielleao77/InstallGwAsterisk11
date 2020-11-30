@@ -16,7 +16,7 @@ yum install epel-release
 yum upgrade -y
 
 yum install make svn openssl-devel ncurses-devel  newt-devel libxml2-devel kernel-devel gcc gcc-c++ sqlite-devel libuuid-devel
- mlocate vim htop wget net-tooles dstat -y && updatedb
+ mlocate vim htop wget net-tools dstat -y && updatedb
 
 vim /etc/yum.repos.d/irontec.repo
 
